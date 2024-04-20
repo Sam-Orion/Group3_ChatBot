@@ -1,5 +1,7 @@
 package com.example.group3chatbot.data
 
+import android.graphics.Bitmap
+
 object ChatData {
 
     val api_key = System.getenv("API_KEY")
@@ -30,7 +32,7 @@ object ChatData {
 
     }
 
-    suspend fun getResponse(prompt: String, bitmap: Bitmap): Chat {
+    suspend fun getResponseWithImage(prompt: String, bitmap: Bitmap): Chat {
         val generativeModel = GenerativeModel(
             modelName = "gemini-pro-vision", apiKey= api_key
         )
