@@ -3,10 +3,13 @@ package com.example.group3chatbot
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.core.graphics.Insets
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.group3chatbot.data.Chat
+import com.example.group3chatbot.data.ChatData
 import com.example.group3chatbot.data.ChatData.getResponseWithImage
+import com.example.group3chatbot.data.ChatData.getResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -20,16 +23,16 @@ class ChatViewModel() : ViewModel(), Parcelable {
     constructor(parcel: Parcel) : this() {
     }
 
-    fun onEvent(event: ChatUIEvent) {
+    suspend fun onEvent(event: ChatUIEvent) {
         when (event) {
             is ChatUIEvent.SendPrompt -> {
                 if (event.prompt.isNotEmpty()) {
-                    addPrompt(event.prompt, event.bitmap)
+                    event.bitmap?.let { addPrompt(event.prompt, it) }
 
                     if (event.bitmap != null) {
-                        getResponseWithImage(event.prompt, event.bitmap)
+                        ChatData.getResponseWithImage(event.prompt, event.bitmap)
                     } else {
-                        getResponse(event.prompt)
+                        ChatData.getResponseWithImage(event.prompt, event.bitmap)
                     }
                 }
             }
@@ -42,16 +45,20 @@ class ChatViewModel() : ViewModel(), Parcelable {
         }
     }
 
-    private fun addPrompt(prompt: String, bitmap: Bitmap?) {
+    private fun addPrompt(prompt: String, bitmap: Bitmap) {
         _chatState.update {
             it.copy(
                 chatList = it.chatList.toMutableList().apply {
-                    add(0, Chat(promt, bitmap, true))
+                    add(0, Chat(prompt, bitmap, true))
                 },
                 prompt = "",
                 bitmap = null
             )
         }
+    }
+
+    private fun add(i: Int, chat: Chat): Insets {
+        TODO("Not yet implemented")
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -72,7 +79,7 @@ class ChatViewModel() : ViewModel(), Parcelable {
         }
     }
 
-    private fun getResponse(prompt: String) {
+    fun getResponse(prompt: String, ChatDate: Any) {
         viewModelScope.launch {
             val chat = ChatDate.getResponse(prompt)
             _chatState.update {
@@ -84,7 +91,7 @@ class ChatViewModel() : ViewModel(), Parcelable {
             }
         }
     }
-    private fun getResponseWithImage(prompt: String, bitmap: Bitmap) {
+    fun getResponseWithImage(prompt: String, bitmap: Bitmap, ChatDate: Any) {
           viewModelScope.launch {
               val chat = ChatDate.getResponseWithImage(prompt, bitmap)
               _chatState.update {
