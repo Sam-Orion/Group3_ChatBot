@@ -27,7 +27,7 @@ object ChatData {
                 isFromUser = false
             )
 
-        } catch (e: ResponseStoppedException) {
+        } catch (e: Exception) {
             return Chat(
                 prompt = e.message ?: "error",
                 bitmap = null,
@@ -37,7 +37,7 @@ object ChatData {
 
     }
 
-    suspend fun getResponseWithImage(prompt: String, bitmap: Bitmap): Chat {
+    suspend fun getResponseWithImage(prompt: String, bitmap: Bitmap?): Chat {
         val generativeModel = GenerativeModel(
             modelName = "gemini-pro-vision", apiKey= api_key
         )
@@ -59,7 +59,7 @@ object ChatData {
                 isFromUser = false
             )
 
-        } catch (e: ResponseStoppedException) {
+        } catch (e: Exception) {
             return Chat(
                 prompt = e.message ?: "error",
                 bitmap = null,
