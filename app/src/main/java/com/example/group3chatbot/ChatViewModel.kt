@@ -1,38 +1,33 @@
 package com.example.group3chatbot
 
 import android.graphics.Bitmap
-import android.os.Parcel
-import android.os.Parcelable
-import androidx.core.graphics.Insets
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.group3chatbot.data.Chat
 import com.example.group3chatbot.data.ChatData
-import com.example.group3chatbot.data.ChatData.getResponseWithImage
-import com.example.group3chatbot.data.ChatData.getResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ChatViewModel() : ViewModel(), Parcelable {
+/**
+ * @author Shubham Misra
+ */
+class ChatViewModel : ViewModel() {
 
     private val _chatState = MutableStateFlow(ChatState())
     val chatState = _chatState.asStateFlow()
 
-    constructor(parcel: Parcel) : this() {
-    }
-
-    suspend fun onEvent(event: ChatUIEvent) {
+    fun onEvent(event: ChatUIEvent) {
         when (event) {
             is ChatUIEvent.SendPrompt -> {
                 if (event.prompt.isNotEmpty()) {
-                    event.bitmap?.let { addPrompt(event.prompt, it) }
+                    addPrompt(event.prompt, event.bitmap)
 
                     if (event.bitmap != null) {
-                        ChatData.getResponseWithImage(event.prompt, event.bitmap)
+                        getResponseWithImage(event.prompt, event.bitmap)
                     } else {
-                        ChatData.getResponseWithImage(event.prompt, event.bitmap)
+                        getResponse(event.prompt, event.bitmap)
                     }
                 }
             }
@@ -45,7 +40,7 @@ class ChatViewModel() : ViewModel(), Parcelable {
         }
     }
 
-    private fun addPrompt(prompt: String, bitmap: Bitmap) {
+    private fun addPrompt(prompt: String, bitmap: Bitmap?) {
         _chatState.update {
             it.copy(
                 chatList = it.chatList.toMutableList().apply {
@@ -57,31 +52,9 @@ class ChatViewModel() : ViewModel(), Parcelable {
         }
     }
 
-    private fun add(i: Int, chat: Chat): Insets {
-        TODO("Not yet implemented")
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<ChatViewModel> {
-        override fun createFromParcel(parcel: Parcel): ChatViewModel {
-            return ChatViewModel(parcel)
-        }
-
-        override fun newArray(size: Int): Array<ChatViewModel?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-    fun getResponse(prompt: String, ChatDate: Any) {
+    private fun getResponse(prompt: String, bitmap: Nothing?) {
         viewModelScope.launch {
-            val chat = ChatDate.getResponse(prompt)
+            val chat = ChatData.getResponse(prompt)
             _chatState.update {
                 it.copy(
                     chatList = it.chatList.toMutableList().apply {
@@ -91,9 +64,9 @@ class ChatViewModel() : ViewModel(), Parcelable {
             }
         }
     }
-    fun getResponseWithImage(prompt: String, bitmap: Bitmap, ChatDate: Any) {
+    private fun getResponseWithImage(prompt: String, bitmap: Bitmap) {
           viewModelScope.launch {
-              val chat = ChatDate.getResponseWithImage(prompt, bitmap)
+              val chat = ChatData.getResponseWithImage(prompt, bitmap)
               _chatState.update {
                   it.copy(
                       chatList = it.chatList.toMutableList().apply {
