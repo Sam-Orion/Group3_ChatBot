@@ -7,9 +7,12 @@ import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * @author Shubham Misra
+ */
 object ChatData {
 
-    val api_key = System.getenv("API_KEY")
+    val api_key = "AIzaSyDN03hDl1xi9_FKC-ZP7vq7PcO9CJ4Z7n8"
 
     suspend fun getResponse(prompt: String): Chat {
         val generativeModel = GenerativeModel(
@@ -45,7 +48,9 @@ object ChatData {
         try {
 
             val inputContent = content {
-                image(bitmap)
+                if (bitmap != null) {
+                    image(bitmap)
+                }
                 text(prompt)
             }
 
