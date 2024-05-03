@@ -267,6 +267,7 @@ class MainActivity : ComponentActivity() {
         val imageState: AsyncImagePainter.State = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(uri)
+                .size(Int.MAX_VALUE, Int.MAX_VALUE)
                 .build()
         ).state
 
