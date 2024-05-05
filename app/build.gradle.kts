@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.group3chatbot"
+    namespace = "com.example.ARIA"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.group3chatbot"
+        applicationId = "com.example.ARIA"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

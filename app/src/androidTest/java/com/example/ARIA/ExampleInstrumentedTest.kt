@@ -1,4 +1,4 @@
-package com.example.group3chatbot
+package com.example.ARIA
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

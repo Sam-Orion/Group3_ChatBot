@@ -1,4 +1,4 @@
-package com.example.group3chatbot
+package com.example.ARIA
 
 import android.graphics.Bitmap
 

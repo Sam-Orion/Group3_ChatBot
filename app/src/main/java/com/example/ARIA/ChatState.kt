@@ -1,7 +1,7 @@
-package com.example.group3chatbot
+package com.example.ARIA
 
 import android.graphics.Bitmap
-import com.example.group3chatbot.data.Chat
+import com.example.ARIA.data.Chat
 
 /**
  * @author Shubham Misra

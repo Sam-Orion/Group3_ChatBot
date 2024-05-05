@@ -1,4 +1,4 @@
-package com.example.group3chatbot
+package com.example.ARIA
 
 import android.graphics.Bitmap
 import androidx.compose.ui.unit.dp
@@ -42,7 +42,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -52,7 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.example.group3chatbot.ui.theme.Group3ChatBotTheme
+import com.example.ARIA.ui.theme.Group3ChatBotTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
@@ -187,7 +186,7 @@ class MainActivity : ComponentActivity() {
                         chatViewModel.onEvent(ChatUIEvent.UpdatePrompt(it))
                     },
                     placeholder = {
-                        Text(text = "Type a Prompt")
+                        Text(text = "Type your Query")
                     }
                 )
 

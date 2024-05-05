@@ -1,4 +1,4 @@
-package com.example.group3chatbot.ui.theme
+package com.example.ARIA.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,10 +1,10 @@
-package com.example.group3chatbot
+package com.example.ARIA
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.group3chatbot.data.Chat
-import com.example.group3chatbot.data.ChatData
+import com.example.ARIA.data.Chat
+import com.example.ARIA.data.ChatData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

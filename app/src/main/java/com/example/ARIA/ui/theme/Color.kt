@@ -1,4 +1,4 @@
-package com.example.group3chatbot.ui.theme
+package com.example.ARIA.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
